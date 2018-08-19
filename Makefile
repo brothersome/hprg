@@ -1,5 +1,6 @@
 CC=gcc
 CFLAGS=-O2 -Wall -W -Wshadow -D_DEF_NORMAL -I.
+OS=Windows
 
 OBJDIR=obj
 
@@ -7,29 +8,45 @@ OUTPUTDIR=out
 SRCDIR=src
 BUILDDIR=build
 
+BASEDIR=base
 
-objects = main.o
 
+objects = main.o \
+	initialize.o
+	
 OBJS = $(patsubst %,$(OBJDIR)/%,$(objects))
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-main: $(OBJS)
+subsystem:
+	$(MAKE) -C src/base
+
+main: $(OBJS) $(BASEOBJS)
 	$(CC) -o $(OUTPUTDIR)/$@ $^
 
-all: $(OBJS)
+all: $(OBJS) $(OBJDIR)/$(BASEDIR)/*.o
+	$(CC) -o $(OUTPUTDIR)/$@ $^ $(CFLAGS)
+
+Debug: $(OBJS) $(OBJDIR)/$(BASEDIR)/*.o
+	$(CC) -o $(OUTPUTDIR)/$@ $^ $(CFLAGS)
+
+Release: $(OBJS) $(OBJDIR)/$(BASEDIR)/*.o
 	$(CC) -o $(OUTPUTDIR)/$@ $^ $(CFLAGS)
 
 .PHONY: clean
 
-clean: 
-	rm -f $(OBJDIR)/*.o *~
+cleanDebug: clean
+
+cleanRelease: clean
+
+clean:
+	rm $(OBJDIR)/*.o *~
 	rm -r $(BUILDDIR)
-	rm @(OUTPUTDIR)/*.*
+	rm $(OUTPUTDIR)/*.*
 
-
-build: 
-	mkdir @(BUILDDIR)
+build:
+	mkdir $(BUILDDIR)
 	cp $(OUTPUTDIR)/*.exe $(BUILDIR)
-	
+
+
