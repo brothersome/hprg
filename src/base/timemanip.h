@@ -9,5 +9,6 @@ unsigned int get_date_from_string_from_client(char *si);
 unsigned int get_first_week_of_year_on_monday(int year);
 int get_week(time_t now);
 void get_string_time_database(char *so,struct tm *time_p);
+void get_time_string(char *so,time_t now);
 
 #endif

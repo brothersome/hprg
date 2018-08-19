@@ -22,7 +22,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 subsystem:
 	$(MAKE) -C src/base
 
-main: $(OBJS) $(BASEOBJS)
+main: $(OBJS) $(OBJDIR)/$(BASEDIR)/*.o
 	$(CC) -o $(OUTPUTDIR)/$@ $^
 
 all: $(OBJS) $(OBJDIR)/$(BASEDIR)/*.o

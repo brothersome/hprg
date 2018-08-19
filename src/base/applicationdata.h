@@ -12,7 +12,9 @@ struct application_data_param {
 
 struct application_data {
 	struct progmem *mem;
-	struct application_data_param *params;	
+	struct application_data_param *params;
+	int (*add_application_data_param)(char *key,char *value);
+	int (*add_application_data_param_no_alloc)(char *key,char *value);	
 };
 
 

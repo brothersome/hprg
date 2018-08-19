@@ -4,13 +4,18 @@ OS=Windows
 
 OBJDIR=../../obj/base
 
-objects = handleparams.o \
+objects = basemem.o \
+	defaults.o \
+	fieldpool.o \
+	handleparams.o \
 	logging.o \
 	memory.o \
 	readconfig.o \
+	scheduler.o \
 	stringmanip.o \
-	timemanip.o \
-	basemem.o
+	threading.o \
+	timemanip.o
+	
 	
 OBJS = $(patsubst %,$(OBJDIR)/%,$(objects))
 

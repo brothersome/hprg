@@ -373,6 +373,13 @@ int get_week(time_t now)
 	}
 	return 52;
 }
+void get_time_string(char *so,time_t now) {
+	struct tm time_p;
+	if (now == 0) now = get_time_signed();
+	gmtime_r(&now,&time_p);
+	sprintf(so,"%04d%02d%02d %02d%02d%02d",time_p.tm_year + 1900,time_p.tm_mon+1,time_p.tm_mday,time_p.tm_hour,time_p.tm_min,time_p.tm_sec);
+	
+}
 void get_string_time_database(char *so,struct tm *time_p)
 {
 	sprintf(so,"%04d-%02d-%02d %02d:%02d:%02d",time_p->tm_year + 1900,time_p->tm_mon+1,time_p->tm_mday,time_p->tm_hour,time_p->tm_min,time_p->tm_sec);
